@@ -17,6 +17,7 @@ routes.post('/add', (req, res)=>{
 
 routes.post('/charts', async(req, res)=>{
     const total = await listRows()
+    console.log(total)
     res.render('charts', {
         total:total
     })

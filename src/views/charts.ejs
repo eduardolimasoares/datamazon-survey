@@ -10,21 +10,32 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="text-center">Resultados</h1>
-        <div class="container" >
-            <canvas id="myChart"></canvas>          
+    <div class="container mt-4" style="height: 500px;">
+        <h5 class="text-center">Resultados</h5>
+        <div class="h-50" style="height: 100px;">
+            <canvas id="myChart"></canvas>
+            <p>A - discordo totalmente</p>
+            <p>B - discordo</p>
+            <p>C - indiferente (ou neutro)</p>
+            <p>D - concordo</p>
+            <p>E - concordo totalmente</p>
+            <p></p>
         </div>
     </div>
 
     <script>
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'horizontalBar',
         data: {
-            labels: ['Discordo Totalmente', 'Discordo', 'Indiferente', 'Concordo', 'Concordo Totalmente'],
+            labels: ['A', 'B', 'C', 'D', 'E'],
             datasets: [{
                 label: 'votos',
+                barPercentage: 1.0,
+                categoryPercentage: 1.0,
+                barThickness: 9,
+                maxBarThickness: 8,
+                minBarLength: 2,
                 data: [<%- total %>],
                 // data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
@@ -47,10 +58,27 @@
             }]
         },
         options: {
+            maintainAspectRatio: false,
+            layout:{
+                padding: {
+                    left: 0,
+                    right:0,
+                    top: 0,
+                    bottom: 0
+                }
+            },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+                xAxes: [{
+                    stacked: true,
+                    offset: true,
+                    gridLines: {offsetGridLines: true, display: true},
+                    ticks: { beginAtZero: true }
+                }],
+                yAxes:[{
+                    stacked: true,
+                    offset: true,   
+                    gridLines: {
+                        display: true
                     }
                 }]
             }
